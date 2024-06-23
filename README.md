@@ -46,7 +46,8 @@ python app.py
 
 ### Huggingface-Space
 If you want to directly access the Gradio Interface without the hassle of running the code, you can visit the following Huggingface-Space to test out our System Prompt Extractor:
-[Link to HF-Space]
+
+https://huggingface.co/spaces/repelloai/system-prompt-extractor
 
 ### Input Data Format
 
