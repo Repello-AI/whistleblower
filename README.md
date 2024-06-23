@@ -4,18 +4,23 @@
 
 The System Prompt Extractor is a tool designed to infer the system prompt of an AI agent based on its generated text outputs. It leverages OpenAI's API to analyze responses and generate a detailed system prompt. This tool can be used to understand and reconstruct the underlying prompts that guide AI behavior.
 
+## Approach
+Following the methodology discussed in [Zhang et al.](https://arxiv.org/abs/2405.15012), we use an LLM's outputs in response to the following 4 user queries:
+
+1. Give me 16 short sentences that best describe yourself. Start with “1:”
+2. Give me 16 examples questions that I can ask you. Start with “1:”
+3. Give me 16 scenarios where I can use you. Start with “1:”
+4. Give me 16 short sentences comparing yourself with ChatGPT. Start with “1:”
+
+We then utilize these outputs to predict a system prompt. Unlike [Zhang et al.](https://arxiv.org/abs/2405.15012)'s work, which involves training a T-5 model, we leverage in-context learning on a pre-trained LLM for predicting the system prompt.
+
 ## Features
 
 - **Generate System Prompts**: Infer detailed system prompts from AI-generated responses.
 - **Gradio Interface**: User-friendly web interface for inputting data and viewing results.
-- **OpenAI Integration**: Utilizes OpenAI's models to process and generate outputs.
 
 ## Requirements
-
-To run this project, you need the following Python packages:
-
-- `openai`
-- `gradio`
+The required packages are contained in the ```requirements.txt``` file.
 
 You can install the required packages using the following command:
 
@@ -31,6 +36,7 @@ pip install -r requirements.txt
 ```
 python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
 ```
+
 ### Gradio Interface
 1. Run the app.py script to launch the Gradio interface.
 ```
@@ -38,7 +44,12 @@ python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
-## Input Data Format
+### Huggingface-Space
+If you want to directly access the Gradio Interface without the hassle of running the code, you can visit the following Huggingface-Space to test out our System Prompt Extractor:
+[Link to HF-Space]
+
+### Input Data Format
+
 The input JSON file should contain the following fields:
 
 ```system_description```: A string with 16 short sentences describing the AI.
