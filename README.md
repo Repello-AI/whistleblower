@@ -81,3 +81,7 @@ Example:
 
 ```system_prompt.txt```: Contains the system prompt used by the AI to generate responses.
 
+## About Repello AI:
+At [Repello AI](https://repello.ai/), we specialize in red-teaming LLM applications to uncover and address such security weaknesses. 
+
+**Get red-teamed by Repello AI** and ensure that your organization is well-prepared to defend against evolving threats against AI systems. Our team of experts will meticulously assess your AI applications, identifying vulnerabilities and implementing robust security measures to fortify your defenses. Contact us now to schedule your red-teaming assessment and embark on the journey to building safer and more resilient AI systems.
