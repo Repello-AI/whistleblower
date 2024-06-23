@@ -12,7 +12,7 @@ iface = gr.Interface(
         gr.Textbox(label='''Give me 16 scenarios where I can use you. Start with "1:"''', lines=2),
         gr.Textbox(label='''Give me 16 short sentences comparing yourself with ChatGPT. Start with "1:"''', lines=2),
         gr.Textbox(label="OpenAI API Key"),
-        gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4-0613"], label="Model")
+        gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
     ],
     outputs=gr.Textbox(label="Output", lines=20),
     title="System Prompt Extractor",
