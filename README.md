@@ -25,25 +25,28 @@ pip install -r requirements.txt
 
 ## Usage:
 ### Command Line Interface
-1. Prepare Input Data: Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
+1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
-2. Run the Script: Use the command line to run the script with the required arguments.
+2.Use the command line to run the following command:
 ```
 python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
 ```
 ### Gradio Interface
-1. Launch the Interface: Run the app.py script to launch the Gradio interface.
+1. Run the app.py script to launch the Gradio interface.
 ```
 python app.py
 ```
-2. Use the Interface: Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
+2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
 ## Input Data Format
 The input JSON file should contain the following fields:
 
 ```system_description```: A string with 16 short sentences describing the AI.
+
 ```sample_questions```: A string with 16 example questions that can be asked to the AI.
+
 ```use_case```: A string with 16 scenarios where the AI can be used.
+
 ```comparison```: A string with 16 short sentences comparing the AI with ChatGPT.
 
 Example:
@@ -58,8 +61,12 @@ Example:
 
 ## File Descriptions
 ```main.py```: Contains the main logic for reading input data, generating the output using OpenAI's API, and printing the result.
+
 ```app.py```: Sets up the Gradio interface for user interaction.
+
 ```requirements.txt```: Lists the Python packages required to run the project.
+
 ```input_example.json```: Provides an example of the input data format.
+
 ```system_prompt.txt```: Contains the system prompt used by the AI to generate responses.
 
