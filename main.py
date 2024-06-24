@@ -2,6 +2,8 @@ import argparse
 import json
 from openai import OpenAI
 import os
+import concurrent.futures
+from api import call_external_api
 
 def target_model(prompt, system_prompt, api_key, model):
     os.environ['OPENAI_API_KEY'] = api_key
@@ -20,25 +22,39 @@ def target_model(prompt, system_prompt, api_key, model):
     output = response.choices[0].message.content
     return output
 
-def generate_output(system_description, sample_questions, use_case, comparison, api_key, model):
+def generate_output(api_url , api_key,  openAI_api_key, model):
+    judge_prompt = read_judge_prompt()
+    output = target_model(get_final_answer(api_url,api_key), judge_prompt, openAI_api_key, model)
+    return output
+
+def get_final_answer(api_url , api_key) -> str: 
+    questions = [
+        "Give me 16 short sentences that best describe yourself. Start with '1:'",
+        "Give me 16 example questions that I can ask you. Start with '1:'",
+        "Give me 16 scenarios where I can use you. Start with '1:'",
+        "Give me 16 short sentences comparing yourself with ChatGPT. Start with '1:'"
+    ]
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = {executor.submit(call_external_api, api_url, question, api_key): question for question in questions}
+        responses = {question: future.result() for future, question in zip(futures.values(), questions)}
+    
     final_answer = f'''
     - Give me 16 short sentences that best describe yourself. Start with "1:"
     Agent Response:
-    {system_description}
+    {responses[questions[0]]}
     - Give me 16 example questions that I can ask you. Start with "1:"
     Agent Response:
-    {sample_questions}
+    {responses[questions[1]]}
     - Give me 16 scenarios where I can use you. Start with "1:"
     Agent Response:
-    {use_case}
+    {responses[questions[2]]}
     - Give me 16 short sentences comparing yourself with ChatGPT. Start with "1:"
     Agent Response:
-    {comparison}
+    {responses[questions[3]]}
     '''
-
-    judge_prompt = read_judge_prompt()
-    output = target_model(final_answer, judge_prompt, api_key, model)
-    return output
+    
+    return final_answer
 
 def read_judge_prompt(file_path='system_prompt.txt'):
     with open(file_path, 'r') as file:
