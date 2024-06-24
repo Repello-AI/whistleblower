@@ -37,8 +37,8 @@ def get_final_answer(api_url , api_key) -> str:
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = {executor.submit(call_external_api, api_url, question, api_key): question for question in questions}
-        responses = {question: future.result() for future, question in zip(futures.values(), questions)}
-    
+        responses = {question: future.result() for future, question in futures.items()}
+
     final_answer = f'''
     - Give me 16 short sentences that best describe yourself. Start with "1:"
     Agent Response:
