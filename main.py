@@ -81,30 +81,25 @@ def main():
         description="Generate output using OpenAI's API")
     parser.add_argument('--json_file', type=str, required=True,
                         help="Path to the JSON file with input data")
-    parser.add_argument('--api_key', type=str,
-                        required=True, help="OpenAI API key")
-    parser.add_argument('--model', type=str, required=True, help="Model name")
 
     args = parser.parse_args()
 
     data = read_json_file(args.json_file)
 
-    system_description = data.get('system_description')
-    sample_questions = data.get('sample_questions')
-    use_case = data.get('use_case')
-    comparison = data.get('comparison')
-
-    if not all([system_description, sample_questions, use_case, comparison]):
-        raise ValueError(
-            "JSON file must contain system_description, sample_questions, use_case, and comparison fields")
+    api_url = data.get('api_url')
+    api_key = data.get('api_key')
+    request_body = data.get('request_body')
+    response_body = data.get('response_body')
+    OpenAI_api_key = data.get('OpenAI_api_key')
+    model = data.get('model')
 
     output = generate_output(
-        system_description,
-        sample_questions,
-        use_case,
-        comparison,
-        args.api_key,
-        args.model
+        api_url,
+        api_key,
+        request_body,
+        response_body,
+        OpenAI_api_key,
+        model
     )
 
     print(output)
