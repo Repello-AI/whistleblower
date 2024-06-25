@@ -27,12 +27,28 @@ pip install -r requirements.txt
 
 ### Preparing the Input Data:
 
+1. Provide your application's dedicated endpoint, and an optional API_KEY, this will be sent in the headers as `X-repello-api-key : <API_KEY>`
+
+2. Input your's application request body's input field and response's output field which will be used by system-prompt-extractor to send request and gather response from your application.
+
+For example, if the request body has a structure similar to the below code snippet:
+```
+{
+    "message" : "Sample input message"
+}
+```
+
+ You need to input `message` in the request body field, similarly provide the response input field
+
+3. Input the openAI key and select the model from the dropdown
+
 ### Gradio Interface
 1. Run the app.py script to launch the Gradio interface.
 ```
 python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
+
 
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
