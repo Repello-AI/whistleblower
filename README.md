@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 1. Provide your application's dedicated endpoint, and an optional API_KEY, this will be sent in the headers as `X-repello-api-key : <API_KEY>`
 
-2. Input your's application request body's input field and response's output field which will be used by system-prompt-extractor to send request and gather response from your application.
+2. Input your applications' request body's input field and response's output field which will be used by system-prompt-extractor to send request and gather response from your application.
 
 For example, if the request body has a structure similar to the below code snippet:
 ```
@@ -61,7 +61,7 @@ python main.py --json_file path/to/your/input.json --api_key your_openai_api_key
 ### Huggingface-Space
 If you want to directly access the Gradio Interface without the hassle of running the code, you can visit the following Huggingface-Space to test out our System Prompt Extractor:
 
-https://huggingface.co/spaces/repelloai/system-prompt-extractor
+https://huggingface.co/spaces/repelloai/whistleblower
 
 ## About Repello AI:
 At [Repello AI](https://repello.ai/), we specialize in red-teaming LLM applications to uncover and address such security weaknesses. 
