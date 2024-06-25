@@ -1,4 +1,4 @@
-# System Prompt Extractor
+# Whistleblower - System Prompt Extractor
 
 ## Overview
 
