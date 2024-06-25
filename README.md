@@ -24,13 +24,8 @@ pip install -r requirements.txt
 ```
 
 ## Usage:
-### Command Line Interface
-1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
-2.Use the command line to run the following command:
-```
-python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
-```
+### Preparing the Input Data:
 
 ### Gradio Interface
 1. Run the app.py script to launch the Gradio interface.
@@ -38,6 +33,14 @@ python main.py --json_file path/to/your/input.json --api_key your_openai_api_key
 python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
+
+### Command Line Interface
+1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
+
+2.Use the command line to run the following command:
+```
+python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
+```
 
 ### Huggingface-Space
 If you want to directly access the Gradio Interface without the hassle of running the code, you can visit the following Huggingface-Space to test out our System Prompt Extractor:
