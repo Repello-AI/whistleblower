@@ -7,10 +7,10 @@ with open('styles.css', 'r') as file:
 iface = gr.Interface(
     fn=generate_output,
     inputs=[
-        gr.Textbox(label='''Give me 16 short sentences that best describe yourself. Start with "1:"''', lines=2),
-        gr.Textbox(label='''Give me 16 example questions that I can ask you. Start with "1:"''', lines=2),
-        gr.Textbox(label='''Give me 16 scenarios where I can use you. Start with "1:"''', lines=2),
-        gr.Textbox(label='''Give me 16 short sentences comparing yourself with ChatGPT. Start with "1:"''', lines=2),
+        gr.Textbox(label='API URL', lines=1),
+        gr.Textbox(label='Optional API Key', lines=1),
+        gr.Textbox(label='Request body input field' , lines=1),
+        gr.Textbox(label='Response body output field', lines=1),
         gr.Textbox(label="OpenAI API Key"),
         gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
     ],
