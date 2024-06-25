@@ -9,8 +9,8 @@ iface = gr.Interface(
     inputs=[
         gr.Textbox(label='API URL', lines=1),
         gr.Textbox(label='Optional API Key', lines=1),
-        gr.Textbox(label='Request body' , lines=1),
-        gr.Textbox(label='Response body', lines=1),
+        gr.Textbox(label='Request body input field' , lines=1),
+        gr.Textbox(label='Response body output field', lines=1),
         gr.Textbox(label="OpenAI API Key"),
         gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4-0613"], label="Model")
     ],
