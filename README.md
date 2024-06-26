@@ -1,3 +1,5 @@
+![linkedin cover (1)](https://github.com/Repello-AI/whistleblower/assets/56952811/c311c8c0-fc1e-4a18-b5e8-3c7a84896620)
+
 # Whistleblower
 
 ## Overview
