@@ -1,9 +1,9 @@
 {
-    "api_url": "https://api.example.com/chatbot",
-    "api_key": "<API_KEY>",
-    "request_body": "message",
-    "response_body": "response",
-    "OpenAI_api_key": "your_openai_api_key_here",
-    "model": "gpt-4"
-  }
+  "api_url": "http://localhost:8000/ask",
+  "request_body": "prompt",
+  "response_body": "response",
+  "OpenAI_api_key": "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",
+  "model": "gpt-4"
+}
+
   

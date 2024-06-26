@@ -2,7 +2,7 @@
 
 ## Overview
 
-The System Prompt Extractor is a tool designed to infer the system prompt of an AI agent based on its generated text outputs. It leverages pretrained LLM's to analyze responses and generate a detailed system prompt. 
+Whistleblower is a tool designed to infer the system prompt of an AI agent based on its generated text outputs. It leverages pretrained LLM's to analyze responses and generate a detailed system prompt. 
 
 ## Approach
 Following the methodology discussed in [Zhang et al.](https://arxiv.org/abs/2405.15012), we use an LLM's outputs in response to the following 4 user queries:
@@ -43,7 +43,7 @@ For example, if the request body has a structure similar to the below code snipp
 3. Input the openAI key and select the model from the dropdown
 
 ### Gradio Interface
-1. Run the app.py script to launch the Gradio interface.
+1. Run the `app.py` script in the `ui` directory to launch the Gradio interface.
 ```
 python app.py
 ```
