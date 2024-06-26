@@ -47,6 +47,7 @@ For example, if the request body has a structure similar to the below code snipp
 ### Gradio Interface
 1. Run the `app.py` script in the `ui` directory to launch the Gradio interface.
 ```
+cd ui
 python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
