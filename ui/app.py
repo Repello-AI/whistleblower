@@ -1,5 +1,11 @@
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import gradio as gr
-from main import generate_output
+from core.whistleblower import generate_output
 
 with open('styles.css', 'r') as file:
     css = file.read()
@@ -15,7 +21,7 @@ iface = gr.Interface(
         gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
     ],
     outputs=gr.Textbox(label="Output", lines=20),
-    title="System Prompt Extractor",
+    title="Whistleblower 📣",
     description="A tool for inferring AI system prompts from generated responses, built by Repello AI.",
     theme="base",
     css=css
