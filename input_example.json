@@ -2,7 +2,7 @@
   "api_url": "http://localhost:8000/ask",
   "request_body": "prompt",
   "response_body": "response",
-  "OpenAI_api_key": "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",
+  "OpenAI_api_key": "<YOUR_API_KEY>",
   "model": "gpt-4"
 }
 
