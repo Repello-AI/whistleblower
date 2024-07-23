@@ -11,6 +11,24 @@ from core.whistleblower import generate_output
 with open('styles.css', 'r') as file:
     css = file.read()
 
+def check_for_placeholders(data, placeholder):
+    data = json.loads(data) if isinstance(data, str) else data
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key == placeholder or value == placeholder:
+                return True
+            elif isinstance(value, (dict, list)):
+                if check_for_placeholders(value, placeholder):
+                    return True
+    elif isinstance(data, list):
+        for item in data:
+            if item == placeholder:
+                return True
+            elif isinstance(item, (dict, list)):
+                if check_for_placeholders(item, placeholder):
+                    return True
+    return False
+
 def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model):
     if payload_format == "JSON":
         if not request_body_json.strip():
@@ -27,6 +45,10 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
             response_body = json.dumps(json.loads(response_body))
         except json.JSONDecodeError:
             raise gr.Error("Invalid JSON format in response body.")
+        if not check_for_placeholders(request_body, "$INPUT"):
+            raise gr.Error("Request body must contain the $INPUT placeholder.")
+        if not check_for_placeholders(response_body, "$OUTPUT"):
+            raise gr.Error("Response body must contain the $OUTPUT placeholder.")
     else:
         if not request_body_kv.strip():
             raise gr.Error("Request body cannot be empty.")
