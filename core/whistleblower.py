@@ -181,7 +181,7 @@ def generate_output(api_url: str, api_key: str, request_body: str, response_body
         
         adv_prompt = attacker_model(adv_prompt, score, improvement, openai_api_key, model)
     
-    return 'Hmm, looks like the model failed to retrieve the System Prompt. \nNo worries, it happens. Just try again!'
+    return 'Hmm, looks like the model failed to retrieve the System Prompt. No worries, it happens. Just try again! \nMake sure you have entered the request and response body correctly!'
 
 def read_json_file(json_file: str) -> dict:
     try:

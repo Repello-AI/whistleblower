@@ -1,4 +1,15 @@
 def extract_nested_value(response_body, structure, placeholder):
+    """
+    Extract a nested value from a response body based on a given structure and placeholder.
+
+    Args:
+        response_body (Dict[str, Any]): The response body to extract the value from.
+        structure (Dict[str, Any]): The structure defining where to find the value.
+        placeholder (Any): The placeholder used in the structure to mark the desired value.
+
+    Returns:
+        Any: The extracted value, or None if not found.
+    """
     def extract_path_to_placeholder(data, structure, placeholder, path=None):
         if path is None:
             path = []
@@ -25,13 +36,16 @@ def extract_nested_value(response_body, structure, placeholder):
         return None
 
     def get_value_from_path(data, path):
-        for part in path:
-            if isinstance(data, list):
-                part = int(part)  # Convert index to integer if part is a list index
-            data = data.get(part, None) if isinstance(data, dict) else (data[part] if part < len(data) else None)
-            if data is None:
-                return None
-        return data
+        try:
+            for part in path:
+                if isinstance(data, list):
+                    part = int(part)  # Convert index to integer if part is a list index
+                data = data.get(part, None) if isinstance(data, dict) else (data[part] if part < len(data) else None)
+                if data is None:
+                    return None
+            return data
+        except (IndexError, KeyError, TypeError):
+            return None
 
     # Find the path to the placeholder in the structure
     path_to_placeholder = extract_path_to_placeholder(response_body, structure, placeholder)
@@ -43,6 +57,17 @@ def extract_nested_value(response_body, structure, placeholder):
     return get_value_from_path(response_body, path_to_placeholder)
 
 def replace_nested_value(data, placeholder, new_value):
+    """
+    Replace a placeholder value in a nested dictionary or list structure.
+
+    Args:
+        data (Union[Dict[str, Any], List[Any]]): The data structure to modify.
+        placeholder (Any): The placeholder value to replace.
+        new_value (Any): The new value to insert.
+
+    Returns:
+        Union[Dict[str, Any], List[Any]]: The modified data structure.
+    """
     if isinstance(data, dict):
         for key, value in data.items():
             if value == placeholder:
