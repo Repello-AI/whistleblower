@@ -78,7 +78,7 @@ def update_payload_format(payload_format):
         return gr.update(visible=True), gr.update(visible=False) , gr.update(visible=True), gr.update(visible=False)
 
 with gr.Blocks(css=css) as iface:
-    gr.Markdown("# Whistleblower 📣\nA tool for inferring AI system prompts from generated responses, built by Repello AI.")
+    gr.Markdown("# Whistleblower 📣\nA tool for leaking system prompts of LLM Apps, built by Repello AI.")
     with gr.Row():
         with gr.Column():
             api_url = gr.Textbox(label='API URL', lines=1)
