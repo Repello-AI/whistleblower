@@ -169,14 +169,17 @@ def generate_output(api_url: str, api_key: str, request_body: str, response_body
     response_json = response_body if type(response_body) == dict else convert_to_json(response_body);
     
     context = get_context(api_url, request_json, response_json, openai_api_key, model)
-    
+    repetition = 0
     for i in range(num_iters):
         target_response = target_model(api_url, request_json, response_json, api_key, adv_prompt)
         score, improvement = judge_model(adv_prompt, target_response, openai_api_key, model, context)
-        
+        print('Response : ', target_response)
         if score == 3:
             return target_response
-        
+        if score == 2:
+            repetition+=1
+        if repetition > 3:
+            return target_response 
         print(f'Score at iteration {i} is {score}')
         
         adv_prompt = attacker_model(adv_prompt, score, improvement, openai_api_key, model)
