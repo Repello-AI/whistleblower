@@ -1,14 +1,13 @@
 import os
-import re
 import sys
 import json
 from typing import Tuple, Optional
 import concurrent.futures
-import random
 
-import torch
+
+
 from openai import OpenAI
-from transformers import AutoTokenizer, AutoModelForCausalLM
+
 
 from core.api import call_external_api
 

@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import gradio as gr
 from core.whistleblower import generate_output
 
-with open('styles.css', 'r') as file:
+with open('ui/styles.css', 'r') as file:
     css = file.read()
 
 def check_for_placeholders(data, placeholder):
