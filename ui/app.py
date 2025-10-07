@@ -29,7 +29,7 @@ def check_for_placeholders(data, placeholder):
                     return True
     return False
 
-def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model):
+def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model, transport):
     if payload_format == "JSON":
         if not request_body_json.strip():
             raise gr.Error("Request body cannot be empty.")
@@ -69,7 +69,7 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
         
 
    
-    return generate_output(api_url, api_key, request_body, response_body, openai_key, model)
+    return generate_output(api_url, api_key, request_body, response_body, openai_key, model, transport)
 
 def update_payload_format(payload_format):
     if payload_format == "JSON":
@@ -81,17 +81,18 @@ with gr.Blocks(css=css) as iface:
     gr.Markdown("# Whistleblower 📣\nA tool for leaking system prompts of LLM Apps, built by Repello AI.")
     with gr.Row():
         with gr.Column():
-            api_url = gr.Textbox(label='API URL', lines=1)
-            api_key = gr.Textbox(label='Optional API Key', lines=1)
-            payload_format = gr.Dropdown(choices=["Key-Value", "JSON"], label="Payload Format", value="Key-Value")
-            request_body_kv = gr.Textbox(label='Request body (replace input field value with $INPUT)', lines=3, placeholder='prompt: $INPUT')
-            request_body_json = gr.Textbox(label='Request body (replace input field value with $INPUT)', lines=3, placeholder='{\n\t"prompt": "$INPUT"\n}', visible=False)
-            response_body_kv = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='response: $OUTPUT')
-            response_body_json = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='{\n\t"response" : "$OUTPUT"\n}' , visible=False)
-            openai_key = gr.Textbox(label="OpenAI API Key")
-            model = gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
-        with gr.Column():
-            output = gr.Textbox(label="Output", lines=27)
+                api_url = gr.Textbox(label='API URL', lines=1)
+                api_key = gr.Textbox(label='Optional API Key', lines=1)
+                payload_format = gr.Dropdown(choices=["Key-Value", "JSON"], label="Payload Format", value="Key-Value")
+                transport = gr.Dropdown(choices=["REST", "WebSocket"], label="Transport", value="REST")
+                request_body_kv = gr.Textbox(label='Request body (replace input field value with $INPUT)', lines=3, placeholder='prompt: $INPUT')
+                request_body_json = gr.Textbox(label='Request body (replace input field value with $INPUT)', lines=3, placeholder='{\n\t"prompt": "$INPUT"\n}', visible=False)
+                response_body_kv = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='response: $OUTPUT')
+                response_body_json = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='{\n\t"response" : "$OUTPUT"\n}' , visible=False)
+                openai_key = gr.Textbox(label="OpenAI API Key")
+                model = gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
+                with gr.Column():
+                    output = gr.Textbox(label="Output", lines=27)
     
     payload_format.change(
         fn=update_payload_format,
@@ -102,7 +103,7 @@ with gr.Blocks(css=css) as iface:
     submit_btn = gr.Button("Submit")
     submit_btn.click(
         fn=validate_input,
-        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, openai_key, model],
+        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, openai_key, model, transport],
         outputs=output
     )
 
