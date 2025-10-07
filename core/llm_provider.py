@@ -46,7 +46,8 @@ class LiteLLMProvider(LLMProvider):
             messages=messages,
             max_tokens=max_tokens,
         )
-        return response.choices[0].message.content
+        # LiteLLM returns an OpenAI-compatible dict-like response
+        return response["choices"][0]["message"]["content"]
 
 def get_llm_provider(provider_type: str, api_key: str) -> LLMProvider:
     """Factory function to get the appropriate LLM provider"""
