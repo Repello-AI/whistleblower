@@ -1,2 +1,6 @@
 openai
 gradio
+torch
+transformers
+xhtml2pdf 
+requests
