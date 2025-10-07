@@ -29,7 +29,7 @@ def check_for_placeholders(data, placeholder):
                     return True
     return False
 
-def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model):
+def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, provider_type, openai_key, model):
     if payload_format == "JSON":
         if not request_body_json.strip():
             raise gr.Error("Request body cannot be empty.")
@@ -66,10 +66,8 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
                 continue
             key, value = line.split(":")
             response_body[key.strip()] = value.strip()
-        
-
-   
-    return generate_output(api_url, api_key, request_body, response_body, openai_key, model)
+    
+    return generate_output(api_url, api_key, request_body, response_body, openai_key, model, provider_type)
 
 def update_payload_format(payload_format):
     if payload_format == "JSON":
@@ -88,8 +86,9 @@ with gr.Blocks(css=css) as iface:
             request_body_json = gr.Textbox(label='Request body (replace input field value with $INPUT)', lines=3, placeholder='{\n\t"prompt": "$INPUT"\n}', visible=False)
             response_body_kv = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='response: $OUTPUT')
             response_body_json = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='{\n\t"response" : "$OUTPUT"\n}' , visible=False)
-            openai_key = gr.Textbox(label="OpenAI API Key")
-            model = gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
+            provider_type = gr.Dropdown(choices=["openai", "litellm"], label="LLM Provider", value="openai")
+            openai_key = gr.Textbox(label="API Key")
+            model = gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4", "claude-3-sonnet", "claude-3-haiku", "gemini-pro"], label="Model")
         with gr.Column():
             output = gr.Textbox(label="Output", lines=27)
     
@@ -102,7 +101,7 @@ with gr.Blocks(css=css) as iface:
     submit_btn = gr.Button("Submit")
     submit_btn.click(
         fn=validate_input,
-        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, openai_key, model],
+        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, provider_type, openai_key, model],
         outputs=output
     )
 
