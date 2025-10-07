@@ -3,14 +3,13 @@ import sys
 import json
 from typing import Tuple, Optional
 import concurrent.futures
-
 from openai import OpenAI
 
 from core.api import call_external_api, call_external_ws
 
 def read_file_content(file_path: str) -> str:
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     except IOError as e:
         print(f"Error reading file {file_path}: {e}")
@@ -104,7 +103,7 @@ def get_context(api_url: str, request_body: dict, response_body: dict, api_key: 
 
 def read_judge_prompt():
     file_path=f"{current_dir}/system_prompt.txt"
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         judge_prompt = file.read()
     return judge_prompt
 
@@ -195,7 +194,7 @@ def generate_output(api_url: str, api_key: str, request_body: str, response_body
 
 def read_json_file(json_file: str) -> dict:
     try:
-        with open(json_file, 'r') as file:
+        with open(json_file, 'r', encoding='utf-8') as file:
             return json.load(file)
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON from {json_file}: {e}")
