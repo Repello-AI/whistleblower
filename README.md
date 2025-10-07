@@ -53,6 +53,17 @@ python app.py
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
 
+### WebSocket Transport
+If your target application exposes a WebSocket endpoint, you can use the WebSocket transport in the UI:
+
+1. Set the `Transport` dropdown to `WebSocket`.
+2. Provide a valid WebSocket URL (e.g., `ws://host/path` or `wss://host/path`).
+3. Configure request/response structures the same way as REST, using `$INPUT` in the request and `$OUTPUT` in the response to indicate where the prompt and model output should be.
+
+Notes:
+- The current WebSocket support sends a single JSON message and waits for a single JSON response. If your server streams multiple frames or uses a non-JSON protocol, you may need to adapt the code.
+- The optional API key (if provided) is sent as an `X-repello-api-key` header during the WebSocket handshake.
+
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
