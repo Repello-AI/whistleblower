@@ -63,13 +63,11 @@ python app.py
 python main.py --json_file path/to/your/input.json
 ```
 
-3. **New**: Generate structured audit reports with additional flags:
+3. Generate structured audit reports with additional flags:
 
 ```bash
-# Generate Markdown report
 python main.py --json_file input.json --report-format markdown
 
-# Generate PDF report
 python main.py --json_file input.json --report-format pdf
 
 ```

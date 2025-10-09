@@ -1,7 +1,7 @@
 import argparse
 from core.whistleblower import whistleblower
 from core.report_data import ReportData
-from core.report_generator import ReportGenerator
+from reports import ReportGenerator
 
 def main():
     parser = argparse.ArgumentParser(

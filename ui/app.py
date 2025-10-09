@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import gradio as gr
 from core.whistleblower import generate_output
 from core.report_data import ReportData
-from core.report_generator import ReportGenerator
+from reports import ReportGenerator
 
 with open('styles.css', 'r') as file:
     css = file.read()
@@ -74,10 +74,9 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
     if generate_report:
         report_data = ReportData()
         report_data.target_endpoint = api_url
-        report_data.api_key_used = bool(api_key)
         report_data.request_body_structure = request_body if isinstance(request_body, dict) else json.loads(request_body)
         report_data.response_body_structure = response_body if isinstance(response_body, dict) else json.loads(response_body)
-        report_data.openai_model = model
+        report_data.model = model
     
     # Run the detection
     output = generate_output(api_url, api_key, request_body, response_body, openai_key, model, report_data)

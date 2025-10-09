@@ -37,7 +37,7 @@ class ReportData:
     api_key_used: bool = False
     request_body_structure: Dict[str, Any] = field(default_factory=dict)
     response_body_structure: Dict[str, Any] = field(default_factory=dict)
-    openai_model: str = ""
+    model: str = ""
     
     # Context Gathering
     context_questions: List[ContextQuestion] = field(default_factory=list)

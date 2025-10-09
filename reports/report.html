@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whistleblower Security Audit Report</title>
+    <style>
+      /* Whistleblower Report Styles */
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Typography */
+      h1 {
+        color: #2c3e50;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #2980b9;
+        margin-top: 30px;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        color: #34495e;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      /* Tables */
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background-color: #fff;
+      }
+
+      .summary-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        vertical-align: top;
+      }
+
+      .summary-table td:first-child {
+        font-weight: bold;
+        background-color: #f8f9fa;
+        width: 30%;
+        color: #2c3e50;
+      }
+
+      /* Code blocks */
+      pre {
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 400px;
+        font-size: 13px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-word;
+        font-family: "Courier New", "Monaco", "Menlo", monospace;
+        line-height: 1.4;
+      }
+
+      .system-prompt {
+        background-color: #e8f5e8;
+        border-left: 4px solid #27ae60;
+        border-radius: 6px;
+        max-height: 500px;
+      }
+
+      code {
+        background-color: #f4f4f4;
+        padding: 3px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", "Monaco", "Menlo", monospace;
+        font-size: 0.9em;
+      }
+
+      /* Iteration blocks */
+      .iteration {
+        background-color: #f8f9fa;
+        border-left: 4px solid #3498db;
+        border-radius: 4px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .iteration h3 {
+        margin-top: 0;
+        color: #3498db;
+      }
+
+      /* Score indicators */
+      .score {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.9em;
+        text-align: center;
+        min-width: 40px;
+      }
+
+      .score-0 {
+        background-color: #e74c3c;
+        color: white;
+      }
+
+      .score-1 {
+        background-color: #e67e22;
+        color: white;
+      }
+
+      .score-2 {
+        background-color: #f39c12;
+        color: white;
+      }
+
+      .score-3 {
+        background-color: #27ae60;
+        color: white;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 12px;
+        border-top: 2px solid #ecf0f1;
+        padding-top: 20px;
+        font-style: italic;
+      }
+
+      /* Horizontal rules */
+      hr {
+        border: none;
+        border-top: 2px solid #ecf0f1;
+        margin: 30px 0;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .summary-table td {
+          padding: 8px;
+          font-size: 0.9em;
+        }
+
+        pre {
+          font-size: 12px;
+          padding: 10px;
+        }
+
+        h1 {
+          font-size: 1.8em;
+        }
+
+        h2 {
+          font-size: 1.4em;
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        .container {
+          max-width: none;
+          padding: 0;
+        }
+
+        h1,
+        h2 {
+          page-break-after: avoid;
+        }
+
+        .iteration {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+
+        pre {
+          max-height: none;
+          overflow: visible;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Whistleblower Security Audit Report</h1>
+      <hr />
+
+      <!-- Executive Summary -->
+      <h2>Executive Summary</h2>
+      <table class="summary-table">
+        <tr>
+          <td>Report Generated</td>
+          <td>{{ report_data.current_timestamp }}</td>
+        </tr>
+        <tr>
+          <td>Detection Status</td>
+          <td>{{ report_data.detection_status }}</td>
+        </tr>
+        <tr>
+          <td>Start Time</td>
+          <td>{{ report_data.start_time }}</td>
+        </tr>
+        {% if report_data.end_time %}
+        <tr>
+          <td>End Time</td>
+          <td>{{ report_data.end_time }}</td>
+        </tr>
+        <tr>
+          <td>Duration</td>
+          <td>{{ report_data.get_duration() }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td>Total Iterations</td>
+          <td>{{ report_data.total_iterations }}</td>
+        </tr>
+        {% if report_data.final_score is not none %}
+        <tr>
+          <td>Final Score</td>
+          <td>
+            <span class="score score-{{ report_data.final_score }}"
+              >{{ report_data.final_score }}/3</span
+            >
+          </td>
+        </tr>
+        {% endif %}
+      </table>
+
+      <!-- Target Information -->
+      <h2>Target Information</h2>
+      <table class="summary-table">
+        <tr>
+          <td>Endpoint URL</td>
+          <td><code>{{ report_data.target_endpoint }}</code></td>
+        </tr>
+        <tr>
+          <td>Model</td>
+          <td>{{ report_data.model }}</td>
+        </tr>
+      </table>
+
+      <h3>Request Body Structure</h3>
+      <pre>{{ report_data.request_body_structure | tojson(indent=2) }}</pre>
+
+      <h3>Response Body Structure</h3>
+      <pre>{{ report_data.response_body_structure | tojson(indent=2) }}</pre>
+
+      <!-- Context Gathering Phase -->
+      {% if report_data.context_questions %}
+      <h2>Context Gathering Phase</h2>
+      <p>
+        These questions were asked to understand the target system's
+        capabilities:
+      </p>
+
+      {% for ctx in report_data.context_questions %}
+      <h3>Question {{ loop.index }}</h3>
+      <p><strong>Prompt:</strong> {{ ctx.question }}</p>
+      <p><strong>Response:</strong></p>
+      <pre>{{ ctx.response }}</pre>
+      {% endfor %} {% if report_data.context_analysis %}
+      <h3>Context Analysis</h3>
+      <pre>{{ report_data.context_analysis }}</pre>
+      {% endif %} {% endif %}
+
+      <!-- Detection Process -->
+      {% if report_data.prompt_responses %}
+      <h2>Detection Process</h2>
+      <p>Iterative prompting attempts to extract the system prompt:</p>
+
+      {% for pr in report_data.prompt_responses %}
+      <div class="iteration">
+        <h3>
+          {{ "Iteration " + pr.iteration|string if pr.iteration is not none else
+          "Attempt" }}
+        </h3>
+        <p><strong>Timestamp:</strong> {{ pr.timestamp }}</p>
+        <p><strong>Adversarial Prompt:</strong></p>
+        <pre>{{ pr.prompt }}</pre>
+        <p><strong>Target Response:</strong></p>
+        <pre>{{ pr.response }}</pre>
+        {% if pr.score is not none %}
+        <p>
+          <strong>Judge Score:</strong>
+          <span class="score score-{{ pr.score }}">{{ pr.score }}/3</span>
+        </p>
+        {% endif %} {% if pr.improvement_suggestion %}
+        <p><strong>Improvement Suggestion:</strong></p>
+        <pre>{{ pr.improvement_suggestion }}</pre>
+        {% endif %}
+      </div>
+      {% endfor %} {% endif %}
+
+      <!-- Analysis Results -->
+      <h2>Analysis Results</h2>
+      <h3>Inferred System Prompt</h3>
+      <pre class="system-prompt">{{ report_data.inferred_system_prompt }}</pre>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Report generated by Whistleblower - System Prompt Detection Tool</p>
+      </div>
+    </div>
+  </body>
+</html>
+

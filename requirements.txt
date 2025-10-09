@@ -4,3 +4,4 @@ torch
 transformers
 xhtml2pdf 
 requests
+jinja2
