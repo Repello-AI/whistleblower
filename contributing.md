@@ -72,9 +72,9 @@ There are many ways to contribute to Whistleblower:
    git checkout -b feature/your-feature-name
    ```
    Use descriptive branch names:
-   - `[Feature]add-new-model-support`
-   - `[Fix]gradio-input-validation`
-   - `[Docs]update-readme`
+   - `feature/add-new-model-support`
+   - `fix/gradio-input-validation`
+   - `documentation/update-readme`
 
 2. **Make your changes** following our [coding guidelines](#coding-guidelines)
 
