@@ -8,6 +8,10 @@ def main():
         description="Generate output using OpenAI's API and optionally create structured audit reports")
     parser.add_argument('--json_file', type=str, required=True,
                         help="Path to the JSON file with input data")
+    parser.add_argument('--api_key', type=str, default=None,
+                        help="OpenAI API key (overrides the one in JSON file)")
+    parser.add_argument('--model', type=str, default=None,
+                        help="OpenAI model to use (overrides the one in JSON file)")
     parser.add_argument('--report-format', type=str, choices=['markdown', 'pdf'], default=None,
                         help="Generate a structured report in the specified format (markdown or pdf)")
     parser.add_argument('--output-file', type=str, default=None,

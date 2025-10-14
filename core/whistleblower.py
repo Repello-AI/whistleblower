@@ -237,8 +237,8 @@ def whistleblower(args, report_data: Optional[ReportData] = None):
     api_key = data.get('api_key')
     request_body = data.get('request_body')
     response_body = data.get('response_body')
-    openai_api_key = data.get('OpenAI_api_key')
-    model = data.get('model')
+    openai_api_key = args.api_key if args.api_key else data.get('OpenAI_api_key')
+    model = args.model if args.model else data.get('model')
 
     output = generate_output(
         api_url,

@@ -52,15 +52,13 @@ python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
-**New**: Enable "Generate Audit Report" to create professional Markdown or PDF reports for security audits!
-
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
 2. Use the command line to run the following command:
 
 ```bash
-python main.py --json_file path/to/your/input.json
+python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
 ```
 
 3. Generate structured audit reports with additional flags:
