@@ -4,7 +4,7 @@
 
 ## Overview
 
-Whistleblower is a tool designed to infer the system prompt of an AI agent based on its generated text outputs. It leverages pretrained LLM's to analyze responses and generate a detailed system prompt. 
+Whistleblower is a tool designed to infer the system prompt of an AI agent based on its generated text outputs. It leverages pretrained LLM's to analyze responses and generate a detailed system prompt.
 
 ## Approach
 Following the methodology discussed in [Zhang et al.](https://arxiv.org/abs/2405.15012), we use an LLM's outputs in response to the following 4 user queries:
@@ -52,13 +52,22 @@ python app.py
 ```
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
-
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
-2.Use the command line to run the following command:
-```
+2. Use the command line to run the following command:
+
+```bash
 python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
+```
+
+3. Generate structured audit reports with additional flags:
+
+```bash
+python main.py --json_file input.json --report-format markdown
+
+python main.py --json_file input.json --report-format pdf
+
 ```
 
 ### Huggingface-Space

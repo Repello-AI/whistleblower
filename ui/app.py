@@ -7,6 +7,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import gradio as gr
 from core.whistleblower import generate_output
+from core.report_data import ReportData
+from reports import ReportGenerator
 
 with open('styles.css', 'r') as file:
     css = file.read()
@@ -29,7 +31,7 @@ def check_for_placeholders(data, placeholder):
                     return True
     return False
 
-def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model):
+def validate_input(api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv , response_body_json, openai_key, model, generate_report, report_format):
     if payload_format == "JSON":
         if not request_body_json.strip():
             raise gr.Error("Request body cannot be empty.")
@@ -67,9 +69,34 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
             key, value = line.split(":")
             response_body[key.strip()] = value.strip()
         
-
-   
-    return generate_output(api_url, api_key, request_body, response_body, openai_key, model)
+    # Create ReportData if report generation is requested
+    report_data = None
+    if generate_report:
+        report_data = ReportData()
+        report_data.target_endpoint = api_url
+        report_data.request_body_structure = request_body if isinstance(request_body, dict) else json.loads(request_body)
+        report_data.response_body_structure = response_body if isinstance(response_body, dict) else json.loads(response_body)
+        report_data.model = model
+    
+    # Run the detection
+    output = generate_output(api_url, api_key, request_body, response_body, openai_key, model, report_data)
+    
+    # Generate report if requested
+    report_files = None
+    if generate_report and report_data:
+        generator = ReportGenerator()
+        try:
+            format_type = report_format.lower()
+            report_path = generator.generate(report_data, format_type)
+            report_files = [report_path]
+            output += f"\n\n Report generated: {report_path}"
+        except Exception as e:
+            output += f"\n\n Report generation error: {e}"
+    
+    # Return output and file paths for download
+    if report_files:
+        return output, report_files
+    return output, None
 
 def update_payload_format(payload_format):
     if payload_format == "JSON":
@@ -90,8 +117,20 @@ with gr.Blocks(css=css) as iface:
             response_body_json = gr.Textbox(label='Response body (replace output field value with $OUTPUT)', lines=3, placeholder='{\n\t"response" : "$OUTPUT"\n}' , visible=False)
             openai_key = gr.Textbox(label="OpenAI API Key")
             model = gr.Dropdown(choices=["gpt-4o", "gpt-3.5-turbo", "gpt-4"], label="Model")
+            
+            # Report generation options
+            gr.Markdown("### Report Generation (Optional)")
+            generate_report = gr.Checkbox(label="Generate Audit Report", value=False)
+            report_format = gr.Dropdown(
+                choices=["Markdown", "PDF"], 
+                label="Report Format", 
+                value="Markdown",
+                visible=True
+            )
+            
         with gr.Column():
-            output = gr.Textbox(label="Output", lines=27)
+            output = gr.Textbox(label="Output", lines=22)
+            report_files = gr.File(label="Download Report(s)", file_count="multiple", visible=True)
     
     payload_format.change(
         fn=update_payload_format,
@@ -102,8 +141,8 @@ with gr.Blocks(css=css) as iface:
     submit_btn = gr.Button("Submit")
     submit_btn.click(
         fn=validate_input,
-        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, openai_key, model],
-        outputs=output
+        inputs=[api_url, api_key, payload_format, request_body_kv, request_body_json, response_body_kv, response_body_json, openai_key, model, generate_report, report_format],
+        outputs=[output, report_files]
     )
 
 iface.launch()
