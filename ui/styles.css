@@ -3,3 +3,11 @@
     margin-right: auto;
     text-align: center;
 }
+
+#component-3,
+#component-25 {
+  flex: 1 1 0;           /* Equal flex-basis, equal growth */
+  min-width: 0;          /* Prevent overflow issues */
+  width: 50%;            /* Explicit 50% width */
+  max-width: 50%;        /* Prevent growing beyond 50% */
+}
