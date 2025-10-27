@@ -4,15 +4,10 @@
     text-align: center;
 }
 
-.full-height-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    height: 100%;
-}
-
-.full-height-textbox textarea {
-    height: 43.125em !important;  /* properly override */
-    width: 100% !important;
-    box-sizing: border-box;
+#component-3,
+#component-25 {
+  flex: 1 1 0;           /* Equal flex-basis, equal growth */
+  min-width: 0;          /* Prevent overflow issues */
+  width: 50%;            /* Explicit 50% width */
+  max-width: 50%;        /* Prevent growing beyond 50% */
 }

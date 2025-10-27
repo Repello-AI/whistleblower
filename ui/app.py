@@ -11,6 +11,9 @@ from core.whistleblower import generate_output
 with open('styles.css', 'r') as file:
     css = file.read()
 
+with open('script.js', 'r') as file:
+    js_code = f'<script>{file.read()}</script>'
+
 def check_for_placeholders(data, placeholder):
     data = json.loads(data) if isinstance(data, str) else data
     if isinstance(data, dict):
@@ -66,9 +69,7 @@ def validate_input(api_url, api_key, payload_format, request_body_kv, request_bo
                 continue
             key, value = line.split(":")
             response_body[key.strip()] = value.strip()
-        
 
-   
     return generate_output(api_url, api_key, request_body, response_body, openai_key, model)
 
 def update_payload_format(payload_format):
@@ -77,13 +78,14 @@ def update_payload_format(payload_format):
     else:
         return gr.update(visible=True), gr.update(visible=False) , gr.update(visible=True), gr.update(visible=False)
 
-with gr.Blocks(css=css) as iface:
+with gr.Blocks(css=css, head=js_code) as iface:
     gr.Markdown("# Whistleblower 📣\nA tool for leaking system prompts of LLM Apps, built by Repello AI.")
 
     # Main horizontal layout: left for inputs, right for output
     with gr.Row():
         # --- Left Column (Inputs) ---
-        with gr.Column():
+        # assign an elem_id so JS can reliably target this column
+        with gr.Column(elem_id="input-column"):
             # Group for API connection inputs
             with gr.Group():
                 with gr.Row():
@@ -167,20 +169,22 @@ with gr.Blocks(css=css) as iface:
 
         # --- Right Column (Output) ---
         # Single column that holds the non-interactive output textbox
+        # give it an elem_id so JS can target it and find the inner textarea reliably
         with gr.Column(elem_classes="full-height-col"):
             output = gr.Textbox(
                 label="Extracted Prompt",
                 lines=27,
                 interactive=False,
-                elem_classes="full-height-textbox",
-                placeholder="The extracted system prompt will appear here after submission."
+                placeholder="The extracted system prompt will appear here after submission.",
+                elem_id="extracted-prompt"
             )
+
     payload_format.change(
         fn=update_payload_format,
         inputs=payload_format,
         outputs=[request_body_kv, request_body_json , response_body_kv , response_body_json]
     )
-    
+
     submit_btn = gr.Button("Submit")
     submit_btn.click(
         fn=validate_input,
