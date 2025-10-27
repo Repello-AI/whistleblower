@@ -209,6 +209,8 @@ def whistleblower(args):
     response_body = data.get('response_body')
     openai_api_key = data.get('OpenAI_api_key')
     model = data.get('model')
+    # Use CLI argument if provided, otherwise use JSON data or default to 'rest'
+    transport = getattr(args, 'transport', None) or data.get('transport', 'rest')
 
     output = generate_output(
         api_url,
@@ -216,7 +218,8 @@ def whistleblower(args):
         request_body,
         response_body,
         openai_api_key,
-        model
+        model,
+        transport
     )
 
     print(output)

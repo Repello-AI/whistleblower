@@ -10,7 +10,17 @@ def call_external_api(url, message, request_body : dict , response_body : dict ,
     headers = {'X-repello-api-key': f'{api_key}'} if api_key else {}
     request_body = replace_nested_value(request_body, "$INPUT", message)
     response = requests.post(url, json=request_body, headers=headers)
-    response_= extract_nested_value(response.json(), response_body, "$OUTPUT")
+    
+    # Check if response is successful
+    response.raise_for_status()
+    
+    # Parse JSON response
+    try:
+        response_data = response.json()
+    except ValueError as e:
+        raise ValueError(f"Invalid JSON response from {url}: {e}")
+    
+    response_= extract_nested_value(response_data, response_body, "$OUTPUT")
     return response_
 
 

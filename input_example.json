@@ -3,7 +3,8 @@
   "request_body": "prompt",
   "response_body": "response",
   "OpenAI_api_key": "<YOUR_API_KEY>",
-  "model": "gpt-4"
+  "model": "gpt-4",
+  "transport": "rest"
 }
 
   
