@@ -3,3 +3,16 @@
     margin-right: auto;
     text-align: center;
 }
+
+.full-height-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100%;
+}
+
+.full-height-textbox textarea {
+    height: 43.125em !important;  /* properly override */
+    width: 100% !important;
+    box-sizing: border-box;
+}
