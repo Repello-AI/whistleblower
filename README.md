@@ -44,6 +44,8 @@ For example, if the request body has a structure similar to the below code snipp
 
 3. Input the openAI key and select the model from the dropdown
 
+4. Select the transport (`rest` or `websocket`) in the UI dropdown, or specify it in your JSON input (e.g., "transport": "websocket").
+
 ### Gradio Interface
 1. Run the `app.py` script in the `ui` directory to launch the Gradio interface.
 ```
@@ -56,7 +58,7 @@ python app.py
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
-2.Use the command line to run the following command:
+2. Use the command line to run the following command:
 ```
 python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
 ```
