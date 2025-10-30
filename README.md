@@ -25,8 +25,6 @@ You can install the required packages using the following command:
 pip install -r requirements.txt
 ```
 
-**Note:** For WebSocket transport support, the `websocket-client` package is required (included in requirements.txt).
-
 ## Usage:
 
 ### Preparing the Input Data:
@@ -46,6 +44,8 @@ For example, if the request body has a structure similar to the below code snipp
 
 3. Input the openAI key and select the model from the dropdown
 
+4. Select the transport (`rest` or `websocket`) in the UI dropdown, or specify it in your JSON input (e.g., "transport": "websocket").
+
 ### Gradio Interface
 1. Run the `app.py` script in the `ui` directory to launch the Gradio interface.
 ```
@@ -55,48 +55,13 @@ python app.py
 2. Open the provided URL in your browser. Enter the required information in the textboxes and select the model. Click the submit button to generate the output.
 
 
-### WebSocket Transport
-If your target application exposes a WebSocket endpoint, you can use the WebSocket transport:
-
-**In the UI:**
-1. Set the `Transport` dropdown to `WebSocket`.
-2. Provide a valid WebSocket URL (e.g., `ws://host/path` or `wss://host/path`).
-3. Configure request/response structures the same way as REST, using `$INPUT` in the request and `$OUTPUT` in the response to indicate where the prompt and model output should be.
-
-**In JSON configuration:**
-```json
-{
-  "api_url": "ws://localhost:8000/chat",
-  "request_body": {"message": "$INPUT"},
-  "response_body": {"output": "$OUTPUT"},
-  "OpenAI_api_key": "<YOUR_API_KEY>",
-  "model": "gpt-4",
-  "transport": "websocket"
-}
-```
-
-Notes:
-- The current WebSocket support sends a single JSON message and waits for a single JSON response. If your server streams multiple frames or uses a non-JSON protocol, you may need to adapt the code.
-- The optional API key (if provided) is sent as an `X-repello-api-key` header during the WebSocket handshake.
-
 ### Command Line Interface
 1. Create a JSON file with the necessary input data. An example file (input_example.json) is provided in the repository.
 
 2. Use the command line to run the following command:
 ```
-python main.py --json_file path/to/your/input.json --transport rest
+python main.py --json_file path/to/your/input.json --api_key your_openai_api_key --model gpt-4
 ```
-
-For WebSocket transport:
-```
-python main.py --json_file path/to/your/input.json --transport websocket
-```
-
-**Transport Configuration:**
-- The `--transport` argument can be either `rest` (default) or `websocket`
-- You can also specify the transport in the JSON file using the `"transport"` field
-- CLI argument overrides JSON configuration if both are provided
-- If neither is specified, defaults to `"rest"`
 
 ### Huggingface-Space
 If you want to directly access the Gradio Interface without the hassle of running the code, you can visit the following Huggingface-Space to test out our System Prompt Extractor:
