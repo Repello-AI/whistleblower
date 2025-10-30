@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+from pathlib import Path
 
 # Add the parent directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -8,8 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import gradio as gr
 from core.whistleblower import generate_output
 
-with open('styles.css', 'r') as file:
-    css = file.read()
+css_path = Path(__file__).with_name('styles.css')
+css = css_path.read_text() if css_path.exists() else ""
 
 def check_for_placeholders(data, placeholder):
     data = json.loads(data) if isinstance(data, str) else data
