@@ -1,7 +1,5 @@
 openai==2.6.0
 gradio==5.49.1
-openai
-gradio
 pytest
 pytest-mock
 pytest-cov
