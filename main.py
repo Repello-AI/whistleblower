@@ -3,7 +3,7 @@ from core.whistleblower import whistleblower
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate output using OpenAI's API")
+        description="Generate output using OpenAI's API or custom LLM using LiteLLM")
     parser.add_argument('--json_file', type=str, required=True,
                         help="Path to the JSON file with input data")
 
